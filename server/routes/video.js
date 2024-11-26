@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-// const { Video } = require('../models/Video');
-const { auth } = require('../middleware/auth');
 const multer = require('multer');
 const path = require('path');
 var ffmpeg = require('fluent-ffmpeg');
+const { Video } = require('../models/VideoModel');
 
 // ffmpeg 경로를 수동으로 지정
 ffmpeg.setFfmpegPath('C:/ffmpeg-2024-11-25/bin/ffmpeg.exe');
@@ -45,14 +44,26 @@ router.post('/uploadfiles', (req, res) => {
     })
 })
 
+router.post('/uploadVideo', (req, res) => {
+    // 비디오 정보를 저장 한다.
+    const video = new Video(req.body);
+
+    video.save()
+        .then(() => {
+            return res.status(200).json({ success: true })
+        })
+        .catch(err => {
+            return res.json({ success: false, err })
+        })    
+})
+
 router.post('/thumbnail', async (req, res) => {
     // 썸네일 생성 하고 비디오 러닝타임 가져오기
     let filePath = "";
     let fileDuration = "";
     try {
         //비디오 정보 가져오기
-        fileDuration = await new Promise((resolve, reject) => {
-            console.log(req.body.url);
+        fileDuration = await new Promise((resolve, reject) => {            
             ffmpeg.ffprobe(req.body.url, (err, metadata) => {
                 if (err) {
                     console.error("Error during ffprobe: ", err);
