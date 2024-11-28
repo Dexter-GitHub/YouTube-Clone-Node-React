@@ -41,7 +41,7 @@ export async function auth() {
             type: AUTH_USER,
             payload: request.data
         }
-    } catch (error) {
+    } catch (error) {        
         return {
             type: AUTH_USER,
             payload: { error: true, message: error.message },

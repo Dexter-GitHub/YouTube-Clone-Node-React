@@ -57,6 +57,18 @@ router.post('/uploadVideo', (req, res) => {
         })    
 })
 
+router.get('/getVideos', async (req, res) => {
+    // 비디오를 DB 에서 가져와서 클라이언트에 보낸다.
+    try {        
+        const videos = await Video.find().populate('writer').exec();
+        console.log(videos);
+        return res.status(200).json({ success: true, videos });
+
+    } catch (err) {
+        return res.status(400).json({ success: false, error: err.message });
+    }    
+})
+
 router.post('/thumbnail', async (req, res) => {
     // 썸네일 생성 하고 비디오 러닝타임 가져오기
     let filePath = "";
