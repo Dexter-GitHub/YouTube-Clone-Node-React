@@ -4,6 +4,7 @@ const multer = require('multer');
 const path = require('path');
 var ffmpeg = require('fluent-ffmpeg');
 const { Video } = require('../models/VideoModel');
+const mongoose = require('mongoose')
 
 // ffmpeg 경로를 수동으로 지정
 ffmpeg.setFfmpegPath('C:/ffmpeg-2024-11-25/bin/ffmpeg.exe');
@@ -44,6 +45,35 @@ router.post('/uploadfiles', (req, res) => {
     })
 })
 
+router.post('/getVideoDetail', async (req, res) => {    
+    try {
+        const videoId = req.body.videoId;
+
+        if (!mongoose.Types.ObjectId.isValid(videoId)) {
+            return res.status(400).json({ success: false, message: '유효하지 않은 videoId 입니다.', videoId });
+        }
+
+        if (!req.body.videoId) {
+            return res.status(400).json({ success: false, message: 'videoId가 제공되지 않았습니다.'})
+        }
+
+        const videoDetail = await Video.findOne({ "_id" : req.body.videoId })
+            .populate('writer').exec();
+            
+            
+        if (!videoDetail) {
+            return res.status.apply(404).json({ success: false, message: "비디오를 찾을 수 없습니다."});
+        }    
+            
+        console.log("server: ", videoDetail);
+
+        return res.status(200).json({ success: true, videoDetail });
+    } catch (err) {
+        console.error('비디오 정보를 가져오는데 실패:', err);
+        return res.status(500).json({ success: false, message: '서버 에러가 발생했습니다.'});
+    }
+})
+
 router.post('/uploadVideo', (req, res) => {
     // 비디오 정보를 저장 한다.
     const video = new Video(req.body);
@@ -60,10 +90,8 @@ router.post('/uploadVideo', (req, res) => {
 router.get('/getVideos', async (req, res) => {
     // 비디오를 DB 에서 가져와서 클라이언트에 보낸다.
     try {        
-        const videos = await Video.find().populate('writer').exec();
-        console.log(videos);
+        const videos = await Video.find().populate('writer').exec();        
         return res.status(200).json({ success: true, videos });
-
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message });
     }    

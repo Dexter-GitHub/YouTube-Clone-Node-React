@@ -35,8 +35,7 @@ router.post('/register', (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-    try {
-        console.log("hello");
+    try {        
         const user = await User.findOne({ email: req.body.email });
 
         if (!user) {
@@ -65,8 +64,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.get('/logout', auth, async (req, res) => {
-    try {
-        console.log(req.user);
+    try {        
         const user = await User.findOneAndUpdate(
             { _id: req.user._id },
             { token: "", tokenExp: "" }

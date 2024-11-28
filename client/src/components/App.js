@@ -11,13 +11,15 @@ import RegisterPage from "./views/RegisterPage/RegisterPage";
 import NavBar from "./views/NavBar/NavBar"
 import Footer from "./views/Footer/Footer";
 import Auth from '../hoc/auth'
-import VideoUploadPage from "./views/VideoUploadPage/VideoUploadPage";
+import UploadVideoPage from "./views/UploadVideoPage/UploadVideoPage";
+import VideoDetailPage from "./views/VideoDetailPage/VideoDetailPage";
 
 function App() {
     const LandingPageWithAuth = Auth(LandingPage, null);
     const LoginPageWithAuth = Auth(LoginPage, false);
     const RegisterPageWithAuth = Auth(RegisterPage, false);
-    const VideoUploadPageWithAuth = Auth(VideoUploadPage, true);
+    const UploadVideoPageWithAuth = Auth(UploadVideoPage, true);
+    const VideoDetailPageWithAuth = Auth(VideoDetailPage, null);
 
     return (
         <Suspense fallback={(<div>Loading...</div>)}>            
@@ -27,8 +29,9 @@ function App() {
                     <Route path="/" element={<LandingPageWithAuth/>} />
                     <Route path="/login" element={<LoginPageWithAuth/>}/>
                     <Route path="/register" element={<RegisterPageWithAuth/>}/>                    
-                    <Route path="/video/upload" element={<VideoUploadPageWithAuth/>}/>                    
-                </Routes>                        
+                    <Route path="/video/upload" element={<UploadVideoPageWithAuth/>}/>
+                    <Route path="/video/:videoId" element={<VideoDetailPageWithAuth/>}/>
+                </Routes>
             </div>
             <Footer />        
         </Suspense>

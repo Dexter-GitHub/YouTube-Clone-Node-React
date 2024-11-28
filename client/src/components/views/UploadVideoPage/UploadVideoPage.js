@@ -21,7 +21,7 @@ const CategoryOptions = [
     {value: 3, label: "Pets & Animals"},
 ]
 
-function VideoUploadPage(props) {
+function UploadVideoPage(props) {
     const user = useSelector(state => state.user);
     const navigate = useNavigate();
     const [VideoTitle, setVideoTitle] = useState("");
@@ -185,4 +185,4 @@ function VideoUploadPage(props) {
     )
 }
 
-export default VideoUploadPage
+export default UploadVideoPage
