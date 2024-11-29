@@ -6,7 +6,7 @@ import { AlignRightOutlined } from '@ant-design/icons';
 import './Sections/Navbar.css'
 
 function NavBar() {
-    const [visible, setVisible] = useState(false)
+    const [visible, setVisible] = useState(false);
     const showDrawer = () => {
         setVisible(true)
     };

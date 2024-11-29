@@ -28,7 +28,7 @@
 }
 
 .menu__container .ant-menu-submenu-title {
-    padding: 10px 15px;
+    padding: 10px 15px;    
 }
 
 .menu__container .menu_right .ant-menu-submenu-title {
@@ -47,7 +47,7 @@
 
 .menu__container .menu_left {
     float: left;
-    width: 200px;
+    width: 210px;
 }
 
 .menu__container .menu_right {

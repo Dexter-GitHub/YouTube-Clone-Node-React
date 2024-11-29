@@ -4,7 +4,8 @@ const multer = require('multer');
 const path = require('path');
 var ffmpeg = require('fluent-ffmpeg');
 const { Video } = require('../models/VideoModel');
-const mongoose = require('mongoose')
+const { Subscriber } = require('../models/Subscriber');
+const mongoose = require('mongoose');
 
 // ffmpeg 경로를 수동으로 지정
 ffmpeg.setFfmpegPath('C:/ffmpeg-2024-11-25/bin/ffmpeg.exe');
@@ -140,6 +141,30 @@ router.post('/thumbnail', async (req, res) => {
     } catch (err) {
         console.error("Error: ", err);
         return res.json({ success: false, message: err.message });
+    }
+})
+
+router.post('/getSubscriptionVideos', async (req, res) => {
+    try {
+        console.log(req.body.userFrom);
+        // 자신의 아이디를 가지고 구독하는 사람들을 찾는다.
+        const subscriberInfo = await Subscriber.find({ userFrom : req.body.userFrom }).exec();
+        console.log(subscriberInfo);
+
+        let subscribedUser = [];
+        subscriberInfo.map((subscriber, i) => {
+            subscribedUser.push(subscriber.userTo);
+        });
+                
+        // 찾은 사람들의 비디오를 가지고 온다.
+        const videos = await Video.find({ writer : { $in: subscribedUser }})
+            .populate('writer')
+            .exec();
+
+        return res.status(200).json({ success: true, videos })
+    }
+    catch (err) {
+        return res.status(400).json({ success: false, message: err.message });
     }
 })
 

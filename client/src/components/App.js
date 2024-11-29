@@ -13,6 +13,7 @@ import Footer from "./views/Footer/Footer";
 import Auth from '../hoc/auth'
 import UploadVideoPage from "./views/UploadVideoPage/UploadVideoPage";
 import VideoDetailPage from "./views/VideoDetailPage/VideoDetailPage";
+import SubscriptionPage from "./views/SubscriptionPage/SubscriptionPage";
 
 function App() {
     const LandingPageWithAuth = Auth(LandingPage, null);
@@ -20,6 +21,7 @@ function App() {
     const RegisterPageWithAuth = Auth(RegisterPage, false);
     const UploadVideoPageWithAuth = Auth(UploadVideoPage, true);
     const VideoDetailPageWithAuth = Auth(VideoDetailPage, null);
+    const SubscriptionPageWithAuth = Auth(SubscriptionPage, null);
 
     return (
         <Suspense fallback={(<div>Loading...</div>)}>            
@@ -31,6 +33,7 @@ function App() {
                     <Route path="/register" element={<RegisterPageWithAuth/>}/>                    
                     <Route path="/video/upload" element={<UploadVideoPageWithAuth/>}/>
                     <Route path="/video/:videoId" element={<VideoDetailPageWithAuth/>}/>
+                    <Route path="/subscription" element={<SubscriptionPageWithAuth/>}/>
                 </Routes>
             </div>
             <Footer />        

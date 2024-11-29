@@ -6,18 +6,22 @@ import moment from 'moment';
 const { Title } = Typography;
 const { Meta } = Card;
 
-function LandingPage() {
+function SubscriptionPage() {
 
     const [Video, setVideo] = useState([]);
-
+  
     useEffect(() => {
-        Axios.get('/api/video/getVideos')
+        const subscriptionVariables = {
+            userFrom : localStorage.getItem('userId')
+        }
+
+        Axios.post('/api/video/getSubscriptionVideos', subscriptionVariables)
             .then(response => {                
                 if (response.data.success) {                    
                     setVideo(response.data.videos);
                 }
                 else {
-                    alert('비디오 가져오기를 실패 했습니다.');
+                    alert('Failed to get Videos');
                 }
             })
             .catch(error => console.error("Error:", error));
@@ -65,37 +69,5 @@ function LandingPage() {
         </div>
     )
 }
-/*
-function LandingPage() {
-    const navigate = useNavigate();
-    
-    const onClickHandler = () => {
-        Axios.get('/api/users/logout')
-            .then(response => {                
-                if (response.data.success) {                    
 
-                    navigate('/login');
-                }
-                else {
-                    alert('로그아웃 하는데 실패 했습니다.');
-                }
-            })
-            .catch(error => console.error("Error:", error))            
-    }
-
-    return (
-        <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center',
-            width: '100%', height: '100vh'
-        }}>
-            <h2>시작 페이지</h2>
-
-            <button onClick={onClickHandler}>
-                로그아웃
-            </button>
-        </div>
-    )
-}
-*/
-
-export default LandingPage
+export default SubscriptionPage
