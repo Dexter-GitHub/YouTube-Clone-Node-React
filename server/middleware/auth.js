@@ -12,8 +12,7 @@ let auth = async (req, res, next) => {
 
     // 토큰을 복호화 한 후 유저를 찾는다.  
     try {  
-        const user = await User.findByToken(token);
-        console.log("findByToken");
+        const user = await User.findByToken(token);        
             
         if (!user) return res.json({ isAuth: false, error: true, message: "User not found" });
 

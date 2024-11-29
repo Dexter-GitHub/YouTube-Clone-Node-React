@@ -13,6 +13,8 @@ app.use(cookieParser());
 app.use(cors());
 app.use('/users', require('./routes/users'));
 app.use('/video', require('./routes/video'));
+app.use('/subscribe', require('./routes/subscribe'));
+
 app.use('/uploads', express.static('uploads'));
 
 const mongoose = require('mongoose');

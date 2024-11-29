@@ -64,8 +64,6 @@ router.post('/getVideoDetail', async (req, res) => {
         if (!videoDetail) {
             return res.status.apply(404).json({ success: false, message: "비디오를 찾을 수 없습니다."});
         }    
-            
-        console.log("server: ", videoDetail);
 
         return res.status(200).json({ success: true, videoDetail });
     } catch (err) {

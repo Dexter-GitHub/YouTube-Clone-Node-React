@@ -58,8 +58,6 @@ function UploadVideoPage(props) {
         Axios.post('/api/video/uploadfiles', formData, config)
             .then(response => {
                 if (response.data.success) {
-                    console.log(response.data);
-
                     let variable = {
                         url: response.data.url,
                         fileName: response.data.fileName
@@ -71,8 +69,7 @@ function UploadVideoPage(props) {
                         .then(response => {
                             if (response.data.success) {
                                 setDuration(response.data.fileDuration);
-                                setThumbnailPath(response.data.url)
-                                console.log(response.data);
+                                setThumbnailPath(response.data.url)                                
                             }
                             else {
                                 alert('썸네일 생성에 실패 했습니다.')

@@ -51,20 +51,31 @@ input.error {
     font-size: 16px
 }
 
-.ant-list-item {
+.ant-list-item,
+.ant-list-item-action {
     list-style: none;
 }
 
+.ant-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .ant-list-item-meta {
-    margin-top: 10px;
+    display: flex;    
+    margin-top: 10px;    
 }
 
-.ant-list-item-meta-content,
 .ant-list-item-meta-title {
-    display: inline;
-    
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 0px;
+    align-items: center;
 }
 
-.ant-list-item-meta-description {
-    margin-left: 50px;
+.ant-list-item-action {
+    margin-right: 80px;
+    display: flex;
+    align-items: center;
 }
