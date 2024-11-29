@@ -145,11 +145,9 @@ router.post('/thumbnail', async (req, res) => {
 })
 
 router.post('/getSubscriptionVideos', async (req, res) => {
-    try {
-        console.log(req.body.userFrom);
+    try {        
         // 자신의 아이디를 가지고 구독하는 사람들을 찾는다.
-        const subscriberInfo = await Subscriber.find({ userFrom : req.body.userFrom }).exec();
-        console.log(subscriberInfo);
+        const subscriberInfo = await Subscriber.find({ userFrom : req.body.userFrom }).exec();        
 
         let subscribedUser = [];
         subscriberInfo.map((subscriber, i) => {
