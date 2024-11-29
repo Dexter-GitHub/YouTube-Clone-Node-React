@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { auth } from '../_actions/user_action';
 import { useNavigate } from 'react-router-dom';
 
-export default function (SpecificComponent, option, adminRoute = null) {
+export default function Auth(SpecificComponent, option, adminRoute = null) {
     // [option]
     // null: 아무나 출입이 가능한 페이지
     // true: 로그인한 유저만 출입이 가능한 페이지
@@ -24,17 +24,17 @@ export default function (SpecificComponent, option, adminRoute = null) {
                 }
                 else {
                     /* 로그인한 상태 */
-                    if (adminRoute && !response.payload.isAdmin) {
+                    if (adminRoute && !response.payload.isAdmin) {                        
                         navigate('/');
                     }
-                    else {
-                        if (!option) {                                                        
+                    else {                        
+                        if (!option && option != null) {                                                                                    
                             navigate('/');
                         }
                     }
                 }
             })            
-        }, [])
+        }, [dispatch, navigate])
 
         return (
             <SpecificComponent {...props} user={user}/>
