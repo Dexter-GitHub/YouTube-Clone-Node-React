@@ -39,9 +39,9 @@ function VideoDetailPage() {
     return (            
         <Row gutter={[16, 16]}>
             <Col lg={18} xs={24}>
-                <div style={{ width: '100%', padding: '3rem 4rem' }}>
+                <div style={{ width: '90%', padding: '3rem 4rem' }}>
                     <video 
-                        style={{ width: '90%' }} 
+                        style={{ width: '100%' }} 
                         src={`http://localhost:5000/${VideoDetail.filePath}`}
                         controls
                     />

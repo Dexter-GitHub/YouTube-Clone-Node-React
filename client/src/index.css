@@ -52,14 +52,14 @@ input.error {
 }
 
 .ant-list-item,
-.ant-list-item-action {
+.ant-list-item-action {    
     list-style: none;
 }
 
 .ant-list-item {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between;    
 }
 
 .ant-list-item-meta {
@@ -74,8 +74,8 @@ input.error {
     align-items: center;
 }
 
-.ant-list-item-action {
-    margin-right: 80px;
+.ant-list-item-action {    
+    padding: 0;
     display: flex;
     align-items: center;
 }
