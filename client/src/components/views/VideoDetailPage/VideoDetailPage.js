@@ -4,10 +4,12 @@ import { Row, Col, List, Avatar } from "antd";
 import Axios from 'axios';
 import SideVideo from "./Sections/SideVideo";
 import Subscribe from './Sections/Subscribe';
+import Comment from './Sections/Comment';
 
 function VideoDetailPage() {
     const { videoId } = useParams();    
-    const [VideoDetail, setVideoDetail] = useState(null);    
+    const [VideoDetail, setVideoDetail] = useState(null);
+    const [Comments, setComments] = useState([]);
     
     useEffect(() => {
         const variable = { videoId }
@@ -24,7 +26,21 @@ function VideoDetailPage() {
             .catch(error => {
                 console.error("Error:", error)
             });
+
+        Axios.post('/api/comment/getComments', variable)
+            .then(response => {
+                if (response.data.success) {                       
+                    setComments(response.data.comments);
+                } 
+                else {
+                    alert('코멘트 정보를 가져오는 것을 실패 하였습니다.')
+                }
+            })
     }, [videoId])
+
+    const refreshFunction = (newComment) => {
+        setComments(Comments.concat(newComment));
+    }
 
     if (!VideoDetail || !VideoDetail.writer) {
         return <div>Loading...</div>;
@@ -52,6 +68,8 @@ function VideoDetailPage() {
                             description={VideoDetail.description}
                         />
                     </List.Item>
+                    <Comment refreshFunction={refreshFunction} 
+                             commentLists={Comments} postId={videoId} />
                 </div>
             </Col>
             <Col lg={6} xs={24}>

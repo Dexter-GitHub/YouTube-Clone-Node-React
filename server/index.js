@@ -14,6 +14,7 @@ app.use(cors());
 app.use('/users', require('./routes/users'));
 app.use('/video', require('./routes/video'));
 app.use('/subscribe', require('./routes/subscribe'));
+app.use('/comment', require('./routes/comment'));
 
 app.use('/uploads', express.static('uploads'));
 
