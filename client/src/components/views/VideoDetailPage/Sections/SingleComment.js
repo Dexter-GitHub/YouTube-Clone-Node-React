@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Avatar } from "antd";
 import Axios  from 'axios';
+import LikeDislikes from './LikeDislikes';
 
 function SingleComment(props) {    
     const user = useSelector(state => state.user);    
@@ -42,8 +43,13 @@ function SingleComment(props) {
     }
 
     const actions = [
+        <LikeDislikes 
+            userId={localStorage.getItem('userId')} 
+            commentId={props.comment._id}
+            key={`like-dislike-${props.comment._id}`}
+        />,
         <span onClick={onClickReplyOpen} key="comment-basic-reply-to"
-              style={{ marginLeft: '2rem' }}> Reply to</span>
+            style={{ marginLeft: '0rem' }}> Reply to</span>
     ];
     
     return (

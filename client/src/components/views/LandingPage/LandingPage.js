@@ -7,7 +7,6 @@ const { Title } = Typography;
 const { Meta } = Card;
 
 function LandingPage() {
-
     const [Video, setVideo] = useState([]);
 
     useEffect(() => {
